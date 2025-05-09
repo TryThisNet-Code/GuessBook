@@ -15,5 +15,10 @@
             $stmt->execute();
             $stmt->close();
         }
+
+        public function showAll(){
+            $stmt = $this->conn->query("SELECT name, message FROM guest_tbl ORDER BY id DESC");
+            return $stmt->fetch_all(MYSQLI_ASSOC);
+        }
     }
 ?>

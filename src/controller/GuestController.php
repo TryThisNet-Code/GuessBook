@@ -18,5 +18,12 @@
             $guess->save($data['name'], $data['message']);
             echo json_encode(['success' => true, 'message' => 'Guest Added to the record']);
         }
+
+        public function showGuest(){
+            require_once __DIR__ . '/../models/GuessBook.php';
+            $guest = new GuessBook();
+            $entries = $guest->showAll();
+            include_once __DIR__ . '/../views/guess_book_form.php';
+        }
     }
 ?>

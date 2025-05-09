@@ -5,6 +5,6 @@
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $controller->addGuess();
     }else{
-        $controller->showGuess();
+        $controller->showGuest();
     }
 ?>

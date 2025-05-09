@@ -9,9 +9,22 @@
     <input type="text" name="name" placeholder="Enter your name">
     <textarea name="message" id="msg" placeholder="Enter your message"></textarea>
     <button onclick="sendMessage()">Send</button>
-    <div id="showEntry">
-        
+    <div id="showSuccess">
+
     </div> 
+    <?php
+        if(!empty($entries)){
+            foreach($entries as $entry){
+                echo '<div id="entry">';
+                echo '<strong>'. htmlspecialchars($entry['name']).'</strong><br>';
+                echo nl2br(htmlspecialchars($entry['message']));
+                echo '</div>';
+            }
+        }else{
+            echo '<p> No guestbook entries yet</p>';
+        }
+
+    ?>
 
     <script>
         function sendMessage(){
@@ -31,9 +44,9 @@
             .then(res => res.json())
             .then(data => {
                 if(data.success == false){
-                    document.getElementById("showEntry").innerText = data.message;
+                    document.getElementById("showSuccess").innerText = data.message;
                 }else{
-                    document.getElementById("showEntry").innerText = data.message;
+                    document.getElementById("showSuccess").innerText = data.message;
                 }
 
                 if(data.success){
