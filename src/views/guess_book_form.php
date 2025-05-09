@@ -11,7 +11,8 @@
     <button onclick="sendMessage()">Send</button>
     <div id="showSuccess">
 
-    </div> 
+    </div>
+    <div id="entries">
     <?php
         if(!empty($entries)){
             foreach($entries as $entry){
@@ -23,13 +24,15 @@
         }else{
             echo '<p> No guestbook entries yet</p>';
         }
-
     ?>
+    </div>
+    
 
     <script>
         function sendMessage(){
             const name = document.querySelector('input[name="name"]').value;
             const message = document.querySelector('textarea[name="message"]').value;
+            const output = document.getElementById("showSuccess");
 
             if(!name || !message){
                 alert("Please fill all of the fields");
@@ -43,15 +46,17 @@
             })
             .then(res => res.json())
             .then(data => {
-                if(data.success == false){
-                    document.getElementById("showSuccess").innerText = data.message;
-                }else{
-                    document.getElementById("showSuccess").innerText = data.message;
-                }
+                output.innerHTML = data.message;
+                output.style.color = data.success ? "green" : "red";
 
                 if(data.success){
                     document.querySelector('input[name="name"]').value = "";
                     document.querySelector('textarea[name="message"]').value = "";
+
+                    const entryDiv = document.createElement("div");
+                    entryDiv.classList.add("entry");
+                    entryDiv.innerHTML = `<strong>${data.entry.name}</strong><br>${data.entry.message}`;
+                    document.getElementById("entries").prepend(entryDiv);
                 }
             })
         }

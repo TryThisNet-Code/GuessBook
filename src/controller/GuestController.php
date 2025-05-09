@@ -9,14 +9,21 @@
 
             if(empty($data['name']) || empty($data['message'])){
                 http_response_code(422);
-                echo json_encode(['success' => false, 'message' => 'Guess is required']);
+                echo json_encode(['success' => false, 'message' => ['Name and Message is required']]);
                 return;
             }
 
             require_once __DIR__ . '/../models/GuessBook.php';
             $guess = new GuessBook();
             $guess->save($data['name'], $data['message']);
-            echo json_encode(['success' => true, 'message' => 'Guest Added to the record']);
+            echo json_encode([
+                'success' => true, 
+                'message' => 'Guest Added to the record',
+                'entry' => [
+                    'name' => htmlspecialchars($data['name']),
+                    'message' => nl2br(htmlspecialchars($data['message']))
+                ]
+            ]);
         }
 
         public function showGuest(){
