@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GuestBook</title>
+    <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
     <input type="text" name="name" placeholder="Enter your name">
@@ -12,19 +13,21 @@
     <div id="showSuccess">
 
     </div>
+
+    
     <div id="entries">
-    <?php
-        if(!empty($entries)){
-            foreach($entries as $entry){
-                echo '<div id="entry">';
-                echo '<strong>'. htmlspecialchars($entry['name']).'</strong><br>';
-                echo nl2br(htmlspecialchars($entry['message']));
-                echo '</div>';
+        <?php
+            if(!empty($entries)){
+                foreach($entries as $entry){
+                    echo '<div class="entry">';
+                    echo '<strong>'. htmlspecialchars($entry['name']).'</strong><br>';
+                    echo nl2br(htmlspecialchars($entry['message']));
+                    echo '</div>';
+                }
+            }else{
+                echo '<p> No guestbook entries yet</p>';
             }
-        }else{
-            echo '<p> No guestbook entries yet</p>';
-        }
-    ?>
+        ?>
     </div>
     
 
